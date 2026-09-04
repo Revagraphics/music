@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Wakaba';
+  src: url('/Wakaba%20400.otf') format('opentype');
+  font-display: swap;
+}
+
+html,
+body {
+  background-color: #180f09;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-title-font {
+  font-family: 'Wakaba', cursive;
+}
+
+/* thin, warm-toned scrollbar so it doesn't fight the palette */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(227, 160, 8, 0.35);
+  border-radius: 999px;
+}
