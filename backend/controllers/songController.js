@@ -1,4 +1,5 @@
 import Song from "../models/Song.js";
+import { uploadAudio, uploadImage } from "../config/cloudinary.js";
 
 const songFields = "title artist album genre coverImage audioUrl duration isPublished createdAt updatedAt";
 
@@ -43,12 +44,15 @@ export const getSong = async (req, res) => {
 export const createSong = async (req, res) => {
   try {
     const { title, artist, album, genre, coverImage, audioUrl: bodyAudioUrl } = req.body;
-    const audioUrl = req.files?.audio?.[0]
-      ? `/uploads/audio/${req.files.audio[0].filename}`
-      : bodyAudioUrl;
-    const uploadedCoverImage = req.files?.coverImage?.[0]
-      ? `/uploads/images/${req.files.coverImage[0].filename}`
-      : coverImage;
+    const audioFile = req.files?.audio?.[0];
+    const coverFile = req.files?.coverImage?.[0];
+
+    const [uploadedAudio, uploadedCover] = await Promise.all([
+      audioFile ? uploadAudio(audioFile.buffer) : null,
+      coverFile ? uploadImage(coverFile.buffer) : null,
+    ]);
+    const audioUrl = uploadedAudio?.secure_url || bodyAudioUrl;
+    const uploadedCoverImage = uploadedCover?.secure_url || coverImage;
 
     if (!title || !artist || !audioUrl) {
       return res.status(400).json({
@@ -79,6 +83,17 @@ export const updateSong = async (req, res) => {
     const updates = Object.fromEntries(
       Object.entries(req.body).filter(([field]) => editableFields.includes(field))
     );
+
+    const audioFile = req.files?.audio?.[0];
+    const coverFile = req.files?.coverImage?.[0];
+    const [uploadedAudio, uploadedCover] = await Promise.all([
+      audioFile ? uploadAudio(audioFile.buffer) : null,
+      coverFile ? uploadImage(coverFile.buffer) : null,
+    ]);
+
+    if (uploadedAudio) updates.audioUrl = uploadedAudio.secure_url;
+    if (uploadedCover) updates.coverImage = uploadedCover.secure_url;
+
     const song = await Song.findByIdAndUpdate(req.params.id, updates, {
       new: true,
       runValidators: true,

@@ -25,7 +25,15 @@ router.post(
   ]),
   createSong
 );
-router.put("/:id", adminAuth, updateSong);
+router.put(
+  "/:id",
+  adminAuth,
+  upload.fields([
+    { name: "audio", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+  ]),
+  updateSong,
+);
 router.delete("/:id", adminAuth, deleteSong);
 
 export default router;
