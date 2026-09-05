@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { usePlayer } from '../context/PlayerContext';
 
 function formatTime(s) {
@@ -26,13 +27,33 @@ const AudioPlayer = () => {
 
   const pct = duration ? Math.min(100, (progress / duration) * 100) : 0;
   const hasTrack = Boolean(currentSong);
+  const seekbarRef = useRef(null);
+  const draggingRef = useRef(false);
 
-  const handleSeek = (e) => {
-    if (!hasTrack) return;
-    const rect = e.currentTarget.getBoundingClientRect();
+  const seekFromPointer = (e) => {
+    if (!hasTrack || !duration || !seekbarRef.current) return;
+    const rect = seekbarRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const ratio = Math.min(1, Math.max(0, x / rect.width));
-    seekTo((duration || 0) * ratio);
+    seekTo(duration * ratio);
+  };
+
+  const handleSeekPointerDown = (e) => {
+    if (!hasTrack) return;
+    draggingRef.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    seekFromPointer(e);
+  };
+
+  const handleSeekPointerMove = (e) => {
+    if (draggingRef.current) seekFromPointer(e);
+  };
+
+  const stopSeeking = (e) => {
+    draggingRef.current = false;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
   };
 
   return (
@@ -125,8 +146,13 @@ const AudioPlayer = () => {
         <div className="flex items-center gap-3 text-[10px] font-mono text-muted px-0.5">
           <span className="w-8  text-right">{formatTime(progress)}</span>
           <div
-            onClick={handleSeek}
-            className={`flex-1 h-2 bg-white/35 rounded-full relative group ${
+            ref={seekbarRef}
+            onClick={seekFromPointer}
+            onPointerDown={handleSeekPointerDown}
+            onPointerMove={handleSeekPointerMove}
+            onPointerUp={stopSeeking}
+            onPointerCancel={stopSeeking}
+            className={`flex-1 h-2 touch-none bg-white/35 rounded-full relative group ${
               hasTrack ? 'cursor-pointer' : 'cursor-not-allowed'
             }`}
           >

@@ -21,13 +21,13 @@ export default function Songs() {
   return (
     <div className="min-h-screen bg-[#ce9353] backdrop-blur-sm pt-28 pb-40 px-6 md:px-12">
       <h1 className="font-display text-3xl md:text-4xl text-cream mb-2">All songs</h1>
-      <p className="text-muted font-body mb-6">Every track in the deck.</p>
+      <p className="text-black font-body mb-6">Every track in the deck.</p>
 
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search title, singer, movie…"
-        className="w-full max-w-md mb-8 px-4 py-2.5 rounded-lg bg-panel border border-turmeric/20 text-cream placeholder:text-muted font-body text-sm focus:outline-none focus:border-turmeric"
+        className="w-full max-w-md mb-8 px-4 py-2.5 rounded-lg bg-panel border border-turmeric/20 text-black placeholder:text-black font-body text-sm focus:outline-none focus:border-turmeric"
       />
 
       {loading && <p className="text-muted font-body text-sm">Loading songs...</p>}

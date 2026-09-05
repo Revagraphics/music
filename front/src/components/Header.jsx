@@ -33,12 +33,12 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-40 px-4 md:px-8 py-4 flex items-center justify-between pointer-events-none">
 
-      <div className="pointer-events-auto font-mono text-cream/80 tracking-widest text-xs md:text-sm bg-[#ce9353] backdrop-blur-md px-3 py-1.5 rounded-md border border-cream/10">
+      <div className="pointer-events-auto hero-title-font cursor-pointer font-mono text-cream/80 tracking-widest text-[1.1rem] md:text-sm bg-[#ce9353] backdrop-blur-md px-4 lg:px-3  py-1.5 rounded-md border border-cream/10">
         <h3 onClick={() => navigate('/')}>SN</h3>
       </div>
 
       {/* Left: live time */}
-      <div className="pointer-events-auto font-mono text-cream/80 tracking-widest text-xs md:text-sm bg-[#ce9353] backdrop-blur-md px-3 py-1.5 rounded-md border border-cream/10">
+      <div className="pointer-events-auto hidden md:block lg:block font-mono text-cream/80 tracking-widest text-xs md:text-sm bg-[#ce9353] backdrop-blur-md px-3 py-1.5 rounded-md border border-cream/10">
         {formatted}
       </div>
 
@@ -53,7 +53,7 @@ const Header = () => {
         <NavLink
           to="/songs"
           className={({ isActive }) =>
-            `px-3 py-1.5 bg-[#ce9353] backdrop-blur-md hover:bg-panel border border-cream/10 rounded-full text-xs transition-all ${
+            ` px-4 lg:px-3 py-1.5 bg-[#ce9353] backdrop-blur-md hover:bg-panel border border-cream/10 rounded-full text-[1.1rem] lg:text-xs transition-all ${
               isActive ? 'text-turmeric border-turmeric/40' : 'text-cream/80'
             }`
           }
@@ -63,7 +63,7 @@ const Header = () => {
         <NavLink
           to="/admin"
           className={({ isActive }) =>
-            `px-3 py-1.5 bg-[#ce9353] backdrop-blur-md hover:bg-panel border border-cream/10 rounded-full text-xs transition-all ${
+            `px-4 lg:px-3 py-1.5 bg-[#ce9353] backdrop-blur-md hover:bg-panel border border-cream/10 rounded-full text-[1.1rem] lg:text-xs transition-all ${
               isActive ? 'text-turmeric border-turmeric/40' : 'text-cream/80'
             }`
           }

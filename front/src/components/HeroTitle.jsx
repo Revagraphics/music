@@ -28,7 +28,7 @@ const HeroTitle = () => {
       </h1>
       <p
         key={shayariIndex}
-        className="hero-title-font mt-5 min-h-[4.5rem] max-w-xl whitespace-pre-line px-5 text-xl leading-relaxed text-zinc-100/90 drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-2xl"
+        className="hero-title-font mt-5 min-h-[4.5rem] max-w-xl whitespace-pre-line px-5 text-[0.9rem] lg:text-xl leading-relaxed text-zinc-100/90 drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-2xl"
       >
         {shayaris[shayariIndex]}
       </p>

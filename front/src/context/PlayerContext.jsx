@@ -81,6 +81,25 @@ export function PlayerProvider({ children }) {
     });
   }, []);
 
+  const prepareSong = useCallback((song, list) => {
+    const audio = audioRef.current;
+    if (!audio || !song) return;
+    const nextQueue = list && list.length ? list : [song];
+    const idx = nextQueue.findIndex((item) => item.id === song.id);
+    queueRef.current = nextQueue;
+    indexRef.current = idx === -1 ? 0 : idx;
+    const queuedSong = nextQueue[indexRef.current] ?? song;
+
+    if (audio.src !== queuedSong.audioUrl) {
+      audio.src = queuedSong.audioUrl;
+      audio.load();
+      setProgress(0);
+      setDuration(0);
+    }
+    setPlaybackError('');
+    setCurrentSong(queuedSong);
+  }, []);
+
   const playSong = useCallback(
     (song, list) => {
       const nextQueue = list && list.length ? list : queueRef.current;
@@ -150,6 +169,7 @@ export function PlayerProvider({ children }) {
       duration,
       volume,
       playSong,
+      prepareSong,
       togglePlay,
       next,
       prev,
@@ -165,6 +185,7 @@ export function PlayerProvider({ children }) {
       duration,
       volume,
       playSong,
+      prepareSong,
       togglePlay,
       next,
       prev,
