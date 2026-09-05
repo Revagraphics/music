@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://music-1-vm7s.onrender.com';
 
 const mediaUrl = (value) => {
   if (!value || value.startsWith('http://') || value.startsWith('https://')) {
