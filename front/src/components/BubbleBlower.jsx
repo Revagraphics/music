@@ -6,7 +6,7 @@ const messages = [
   "Wow, great rhythm! 🎧",
   "Let's make this track DROP! 💥",
   "The beat starts here 🚀",
-  "Reva loves this melody ❤️",
+  "I love this melody ❤️",
   "Your playlist is on fire today 🔥",
   "Ready to blast the speakers? 🔊",
 ];

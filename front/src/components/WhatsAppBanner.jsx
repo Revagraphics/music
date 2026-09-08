@@ -1,12 +1,12 @@
 const WhatsAppBanner = () => {
   return (
-    <div className="flex items-center justify-between gap-4 bg-panel/80 backdrop-blur-md border border-turmeric/15 px-4 py-2 rounded-xl text-cream shadow-xl max-w-md w-full">
+    <div className="flex items-center justify-between gap-4  px-4 py-2 rounded-xl text-white text-xl shadow-xl max-w-md w-full">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white flex-shrink-0">
-          <i className="ri-whatsapp-fill text-lg" />
+        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-purple-600 flex items-center justify-center text-white flex-shrink-0">
+          <i className="ri-instagram-fill text-lg" />
         </div>
-        <p className="text-xs text-cream/90 font-body truncate">
-          Get new songs before everyone else 🔥
+        <p className="text-xl text-cream/90 font-body truncate">
+          @ negisourabh027
         </p>
       </div>
       <a

@@ -84,48 +84,8 @@ const Home = () => {
       <div className="relative z-10 flex flex-col items-center w-full flex-1 justify-center gap-10 px-4 pt-28 ">
         <HeroTitle />
 
-        {/* <div className="w-full max-w-md">
-          <WhatsAppBanner />
-        </div> */}
+        
 
-        {/* Quick teaser of tracks, full list lives at /songs */}
-        {/* {teaser.length > 0 && (
-          <div className="w-full max-w-md flex flex-col gap-2">
-            {teaser.map((song) => {
-              const active = currentSong?.id === song.id;
-              return (
-                <button
-                  key={song.id}
-                  onClick={() => playSong(song, songs)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-xl border transition-colors text-left ${
-                    active
-                      ? 'border-turmeric/40 bg-panel'
-                      : 'border-cream/5 bg-panel/50 hover:bg-panel'
-                  }`}
-                >
-                  <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 bg-cocoa">
-                    <img
-                      src={song.coverImage}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-body text-sm text-cream truncate">{song.title}</p>
-                    <p className="font-body text-[11px] text-muted truncate">
-                      {song.artist}
-                    </p>
-                  </div>
-                  <i
-                    className={`text-turmeric ri-lg ${
-                      active && isPlaying ? 'ri-pause-mini-fill' : 'ri-play-mini-fill'
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
-        )} */}
 
          <Link
            to="/songs"
@@ -138,6 +98,10 @@ const Home = () => {
           contact: sourabhnegi557@gmail.com
         </footer> */}
       </div>
+
+      <div className="w-full max-w-md left-0 bottom-6 md:bottom-4 fixed z-50 flex justify-end px-4 pointer-events-none">
+          <WhatsAppBanner />
+        </div>
     </main>
   );
 };
