@@ -14,6 +14,8 @@ export function PlayerProvider({ children }) {
   const audioRef = useRef(null);
   const queueRef = useRef([]);
   const indexRef = useRef(-1);
+  const repeatRef = useRef(false);
+  const shuffleRef = useRef(false);
 
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,6 +23,8 @@ export function PlayerProvider({ children }) {
   const [duration, setDuration] = useState(0);
   const [playbackError, setPlaybackError] = useState('');
   const [volume, setVolumeState] = useState(0.8);
+  const [repeat, setRepeat] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
 
   // Create the underlying <audio> element once and wire up its events.
   useEffect(() => {
@@ -37,7 +41,15 @@ export function PlayerProvider({ children }) {
     };
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
-    const onEnded = () => next();
+    const onEnded = () => {
+      if (repeatRef.current && queueRef.current.length) {
+        audio.currentTime = 0;
+        setProgress(0);
+        loadAndPlay(queueRef.current[indexRef.current]);
+        return;
+      }
+      next();
+    };
     const onError = () => {
       setIsPlaying(false);
       setPlaybackError(`Unable to play ${audio.src || 'this audio file'}.`);
@@ -113,7 +125,15 @@ export function PlayerProvider({ children }) {
 
   const next = useCallback(() => {
     if (!queueRef.current.length) return;
-    indexRef.current = (indexRef.current + 1) % queueRef.current.length;
+    if (shuffleRef.current && queueRef.current.length > 1) {
+      let nextIndex = indexRef.current;
+      while (nextIndex === indexRef.current) {
+        nextIndex = Math.floor(Math.random() * queueRef.current.length);
+      }
+      indexRef.current = nextIndex;
+    } else {
+      indexRef.current = (indexRef.current + 1) % queueRef.current.length;
+    }
     loadAndPlay(queueRef.current[indexRef.current]);
   }, [loadAndPlay]);
 
@@ -149,6 +169,20 @@ export function PlayerProvider({ children }) {
     setProgress(time);
   }, []);
 
+  const toggleRepeat = useCallback(() => {
+    setRepeat((enabled) => {
+      repeatRef.current = !enabled;
+      return !enabled;
+    });
+  }, []);
+
+  const toggleShuffle = useCallback(() => {
+    setShuffle((enabled) => {
+      shuffleRef.current = !enabled;
+      return !enabled;
+    });
+  }, []);
+
   const formatDate = useCallback((value) => {
     if (!value) return '';
     const date = new Date(value);
@@ -168,6 +202,8 @@ export function PlayerProvider({ children }) {
       progress,
       duration,
       volume,
+      repeat,
+      shuffle,
       playSong,
       prepareSong,
       togglePlay,
@@ -175,6 +211,8 @@ export function PlayerProvider({ children }) {
       prev,
       setVolume,
       seekTo,
+      toggleRepeat,
+      toggleShuffle,
       formatDate,
     }),
     [
@@ -184,6 +222,8 @@ export function PlayerProvider({ children }) {
       progress,
       duration,
       volume,
+      repeat,
+      shuffle,
       playSong,
       prepareSong,
       togglePlay,
@@ -191,6 +231,8 @@ export function PlayerProvider({ children }) {
       prev,
       setVolume,
       seekTo,
+      toggleRepeat,
+      toggleShuffle,
       formatDate,
     ]
   );

@@ -23,6 +23,10 @@ const AudioPlayer = () => {
     volume,
     setVolume,
     seekTo,
+    repeat,
+    shuffle,
+    toggleRepeat,
+    toggleShuffle,
   } = usePlayer();
 
   const pct = duration ? Math.min(100, (progress / duration) * 100) : 0;
@@ -93,7 +97,17 @@ const AudioPlayer = () => {
           </div>
 
           {/* Transport controls */}
-          <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+            <button
+              onClick={toggleRepeat}
+              disabled={!hasTrack}
+              aria-label={repeat ? 'Disable repeat' : 'Enable repeat'}
+              aria-pressed={repeat}
+              title={repeat ? 'Disable repeat' : 'Repeat current song'}
+              className={`transition disabled:opacity-30 ${repeat ? 'text-turmeric' : 'text-white hover:text-cream'}`}
+            >
+              <i className="ri-repeat-2-line text-lg" />
+            </button>
             <button
               onClick={prev}
               disabled={!hasTrack}
@@ -117,6 +131,16 @@ const AudioPlayer = () => {
               className="text-white hover:text-cream disabled:opacity-30 disabled:hover:text-cream/70 transition"
             >
               <i className="ri-skip-forward-fill text-lg" />
+            </button>
+            <button
+              onClick={toggleShuffle}
+              disabled={!hasTrack}
+              aria-label={shuffle ? 'Disable shuffle' : 'Enable shuffle'}
+              aria-pressed={shuffle}
+              title={shuffle ? 'Disable shuffle' : 'Shuffle queue'}
+              className={`transition disabled:opacity-30 ${shuffle ? 'text-turmeric' : 'text-white hover:text-cream'}`}
+            >
+              <i className="ri-shuffle-line text-lg" />
             </button>
 
             {/* Volume — hidden on very small screens */}

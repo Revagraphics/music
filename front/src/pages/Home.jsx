@@ -1,8 +1,8 @@
+import Insta from '../components/Insta';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import HeroTitle from '../components/HeroTitle';
-import WhatsAppBanner from '../components/WhatsAppBanner';
 import { useSongs } from '../context/SongContext';
 import { usePlayer } from '../context/PlayerContext';
 
@@ -84,9 +84,6 @@ const Home = () => {
       <div className="relative z-10 flex flex-col items-center w-full flex-1 justify-center gap-10 px-4 pt-28 ">
         <HeroTitle />
 
-        
-
-
          <Link
            to="/songs"
            className="font-body text-xl md:text-sm tracking-wide text-white bg-turmeric hover:bg-turmeric/90 px-5  rounded-full transition-all shadow-glow"
@@ -99,8 +96,8 @@ const Home = () => {
         </footer> */}
       </div>
 
-      <div className="w-full max-w-md left-0 bottom-6 md:bottom-4 fixed z-50 flex justify-end px-4 pointer-events-none">
-          <WhatsAppBanner />
+      <div className="fixed inset-x-0 bottom-[9.5rem] z-40 flex w-full max-w-md justify-end px-4 pointer-events-none sm:bottom-[8.5rem] md:bottom-6">
+          <Insta />
         </div>
     </main>
   );
