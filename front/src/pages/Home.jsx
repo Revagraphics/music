@@ -1,4 +1,3 @@
-import Insta from '../components/Insta';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -96,9 +95,6 @@ const Home = () => {
         </footer> */}
       </div>
 
-      <div className="fixed inset-x-0 bottom-[9.5rem] z-40 flex w-full max-w-md justify-end px-4 pointer-events-none sm:bottom-[8.5rem] md:bottom-6">
-          <Insta />
-        </div>
     </main>
   );
 };

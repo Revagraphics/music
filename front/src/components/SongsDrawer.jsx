@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePlayer } from '../context/PlayerContext';
 import { useSongs } from '../context/SongContext';
+import Insta from './Insta';
 
 export default function SongsDrawer({ onClose }) {
   const [query, setQuery] = useState('');
@@ -115,6 +116,10 @@ export default function SongsDrawer({ onClose }) {
             </ol>
           )}
         </div>
+
+        <footer className="border-t border-cream/10 px-5 py-4 md:px-7">
+          <Insta />
+        </footer>
       </aside>
     </div>
   );
